@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>極上の肴 — 天然なまこ 海の雫</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8cc7a;
+      --gold-dark: #8a6f30;
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1a2236;
+      --cream: #f5f0e8;
+      --cream-dim: #d4c9b0;
+      --text: #e8e0d0;
+      --text-dim: #9a9080;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text);
+      font-family: 'Noto Serif JP', serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 60% 40%, #1a2a3a 0%, #080c14 60%, #020408 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(20, 50, 80, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(10, 30, 60, 0.3) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.6) 0%, transparent 70%);
+      animation: float linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      color: var(--cream-dim);
+      letter-spacing: 0.15em;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.9s forwards;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.1s forwards;
+    }
+
+    .hero-cta {
+      opacity: 0;
+      animation: fadeUp 1s ease 1.3s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 2s forwards;
+    }
+
+    .scroll-hint span {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ========== STORY ========== */
+    .section {
+      padding: 8rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      line-height: 2;
+      max-width: 680px;
+    }
+
+    .story-section {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
+    }
+
+    .story-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .story-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .story-visual {
+      position: relative;
+      aspect-ratio: 3/4;
+      max-height: 500px;
+    }
+
+    .namako-art {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .namako-svg {
+      width: 80%;
+      filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.15));
+      animation: gentleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+    }
+
+    .story-border {
+      position: absolute;
+      top: 1rem;
+      right: -1rem;
+      bottom: -1rem;
+      left: 1rem;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      pointer-events: none;
+    }
+
+    /* ========== FEATURES ========== */
+    .features-section {
+      background: var(--navy-mid);
+      padding: 8rem 2rem;
+    }
+
+    .features-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card:hover {
+      border-color: rgba(201, 168, 76, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: var(--gold-light);
+    }
+
+    .feature-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.9;
+    }
+
+    /* ========== SCENE ========== */
+    .scene-section {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .scene-banner {
+      background: linear-gradient(135deg, #0d1520, #1a2a3a, #0d1520);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .scene-banner::before,
+    .scene-banner::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .scene-banner::before { top: 0; }
+    .scene-banner::after { bottom: 0; }
+
+    .scene-quote {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      line-height: 2;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      color: var(--cream);
+    }
+
+    .scene-quote .hl {
+      color: var(--gold);
+    }
+
+    .scene-attr {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+    }
+
+    /* ========== PRODUCT ========== */
+    .product-section {
+      background: var(--navy-light);
+      padding: 8rem 2rem;
+    }
+
+    .product-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+
+    .product-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .product-card:hover {
+      border-color: rgba(201, 168, 76, 0.5);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .product-visual {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a1828, #1a2a3a);
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, var(--navy-mid));
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 0.3rem 0.8rem;
+      z-index: 1;
+    }
+
+    .product-info {
+      padding: 2rem;
+    }
+
+    .product-name {
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+    }
+
+    .price-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .price-tax {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .btn-cart {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-cart:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .review-section {
+      background: var(--navy);
+      padding: 8rem 2rem;
+    }
+
+    .review-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .review-grid { grid-template-columns: 1fr; }
+    }
+
+    .review-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 2.5rem 2rem;
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1.2rem;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .review-author {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+    }
+
+    /* ========== CTA BANNER ========== */
+    .cta-section {
+      background: linear-gradient(135deg, #0d1a28, #1a2c40, #0d1a28);
+      padding: 8rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title strong {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-bottom: 3rem;
+      letter-spacing: 0.1em;
+    }
+
+    .btn-large {
+      display: inline-block;
+      padding: 1.3rem 4rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .btn-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(201, 168, 76, 0.5);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #040709;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .footer-logo {
+      font-size: 1.3rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-copy {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== GOLD LINE ========== */
+    .gold-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem 0;
+    }
+
+    .gold-line.center { margin: 1.5rem auto; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Premium Sea Cucumber — 極上の海の恵み</p>
+      <h1 class="hero-title">
+        今宵の一杯に、<br>
+        <span class="accent">海の宝石</span>を。
+      </h1>
+      <p class="hero-subtitle">天然なまこが誘う、至高の晩酌時間</p>
+      <div class="hero-divider"></div>
+      <div class="hero-cta">
+        <a href="#product" class="btn-primary"><span>今すぐ味わう</span></a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== STORY ===== -->
+  <section class="story-section">
+    <div class="section">
+      <div class="story-inner">
+        <div class="story-text reveal">
+          <p class="section-label">Our Story</p>
+          <h2 class="section-title">仕事を終えた夜、<br>あなただけの<br>極上空間へ</h2>
+          <div class="gold-line"></div>
+          <p class="section-body">
+            一日の疲れが溶けていく、その瞬間のために。<br><br>
+            冷えた日本酒、あるいは上質な焼酎。グラスに口をつける前に、箸先でそっとつまむ——
+            コリコリとした食感、磯の香り、深みのある旨み。<br><br>
+            それは単なる「肴」ではなく、あなたが今日も真剣に生きたことへの、静かなご褒美です。
+          </p>
+        </div>
+        <div class="story-visual reveal">
+          <div class="namako-art">
+            <svg class="namako-svg" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background glow -->
+              <ellipse cx="150" cy="230" rx="120" ry="100" fill="url(#glow1)" opacity="0.3"/>
+              <!-- Main body -->
+              <path d="M50 180 C45 140, 60 90, 100 65 C130 45, 175 45, 205 65 C245 90, 258 140, 255 180 C260 220, 250 270, 230 295 C210 320, 185 335, 155 335 C125 335, 95 320, 75 295 C55 270, 42 220, 50 180Z"
+                fill="url(#bodyGrad)" stroke="url(#strokeGrad)" stroke-width="1.5"/>
+              <!-- Texture bumps -->
+              <ellipse cx="120" cy="130" rx="12" ry="8" fill="url(#bumpGrad)" opacity="0.6"/>
+              <ellipse cx="170" cy="115" rx="10" ry="7" fill="url(#bumpGrad)" opacity="0.5"/>
+              <ellipse cx="215" cy="145" rx="11" ry="7" fill="url(#bumpGrad)" opacity="0.6"/>
+              <ellipse cx="100" cy="175" rx="10" ry="7" fill="url(#bumpGrad)" opacity="0.5"/>
+              <ellipse cx="195" cy="185" rx="12" ry="8" fill="url(#bumpGrad)" opacity="0.6"/>
+              <ellipse cx="150" cy="165" rx="9" ry="6" fill="url(#bumpGrad)" opacity="0.4"/>
+              <ellipse cx="135" cy="220" rx="11" ry="7" fill="url(#bumpGrad)" opacity="0.5"/>
+              <ellipse cx="185" cy="240" rx="10" ry="7" fill="url(#bumpGrad)" opacity="0.6"/>
+              <ellipse cx="110" cy="255" rx="9" ry="6" fill="url(#bumpGrad)" opacity="0.4"/>
+              <ellipse cx="170" cy="285" rx="10" ry="6" fill="url(#bumpGrad)" opacity="0.5"/>
+              <ellipse cx="225" cy="210" rx="9" ry="6" fill="url(#bumpGrad)" opacity="0.4"/>
+              <!-- Highlight -->
+              <path d="M110 90 C130 75, 165 72, 190 88" stroke="rgba(255,255,255,0.15)" stroke-width="8" stroke-linecap="round"/>
+              <!-- Tentacles at front -->
+              <ellipse cx="152" cy="68" rx="18" ry="12" fill="url(#tentacleGrad)"/>
+              <path d="M140 62 C138 50, 134 42, 136 36" stroke="url(#strokeGrad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M148 60 C146 48, 146 38, 150 32" stroke="url(#strokeGrad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M156 61 C158 49, 161 40, 164 35" stroke="url(#strokeGrad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M164 66 C168 55, 174 46, 178 42" stroke="url(#strokeGrad)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M133 68 C128 59, 122 53, 118 50" stroke="url(#strokeGrad)" stroke-width="2" stroke-linecap="round"/>
+              <!-- Gold shimmer overlay -->
+              <path d="M50 180 C45 140, 60 90, 100 65 C130 45, 175 45, 205 65 C245 90, 258 140, 255 180 C260 220, 250 270, 230 295 C210 320, 185 335, 155 335 C125 335, 95 320, 75 295 C55 270, 42 220, 50 180Z"
+                fill="url(#shimmer)" opacity="0.1"/>
+
+              <defs>
+                <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#c9a84c"/>
+                  <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <linearGradient id="bodyGrad" x1="50" y1="45" x2="260" y2="340" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#2a4a3a"/>
+                  <stop offset="30%" stop-color="#1a3a2c"/>
+                  <stop offset="60%" stop-color="#153020"/>
+                  <stop offset="100%" stop-color="#0d2018"/>
+                </linearGradient>
+                <linearGradient id="strokeGrad" x1="0" y1="0" x2="300" y2="380" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#8a6f30" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.6"/>
+                </linearGradient>
+                <radialGradient id="bumpGrad" cx="50%" cy="30%" r="50%">
+                  <stop offset="0%" stop-color="#4a7a5a" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#1a4028" stop-opacity="0.2"/>
+                </radialGradient>
+                <linearGradient id="tentacleGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3a6a4a"/>
+                  <stop offset="100%" stop-color="#1a3a28"/>
+                </linearGradient>
+                <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#c9a84c"/>
+                  <stop offset="50%" stop-color="transparent"/>
+                  <stop offset="100%" stop-color="#c9a84c"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="story-border"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCENE QUOTE ===== -->
+  <div class="scene-banner">
+    <p class="scene-quote">
+      「 <span class="hl">コリッ</span>とした歯ごたえ、磯の香り。<br>
+      酒が進む。時間を忘れる。<br>
+      これが、<span class="hl">大人の贅沢</span>だ。 」
+    </p>
+    <p class="scene-attr">— 海の雫 愛飲者より</p>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features-section">
+    <div class="features-inner">
+      <div class="features-header reveal">
+        <p class="section-label">Why NAMAKO</p>
+        <h2 class="section-title" style="text-align:center">なぜ、なまこなのか</h2>
+        <div class="gold-line center"></div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <span class="feature-icon">🌊</span>
+          <h3 class="feature-title">天然素材の旨み</h3>
+          <p class="feature-text">
+            清浄な海で育った天然なまこ。薬品不使用、職人の手仕事で丁寧に加工。自然が凝縮した、本物の旨みをそのままお届けします。
+          </p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.1s">
+          <span class="feature-icon">🍶</span>
+          <h3 class="feature-title">酒との絶妙な相性</h3>
+          <p class="feature-text">
+            日本酒、焼酎、ウイスキー——どんなお酒とも寄り添う。塩気と磯の香りが、酒の甘みと深みを引き立て、飲む手が止まらなくなります。
+          </p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.2s">
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">栄養と滋養の宝庫</h3>
+          <p class="feature-text">
+            古来より「海のもく」と称され珍重されてきたなまこ。コラーゲン、コンドロイチン豊富。美味しく食べて、内側から整う。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT ===== -->
+  <section class="product-section" id="product">
+    <div class="product-inner">
+      <div class="reveal">
+        <p class="section-label">Products</p>
+        <h2 class="section-title">選りすぐりの逸品</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="product-grid">
+
+        <div class="product-card reveal">
+          <div class="product-visual">
+            🌊
+            <span class="product-badge">BESTSELLER</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">なまこの酢漬け 極上</h3>
+            <p class="product-desc">
+              肉厚な国産天然なまこを職人の手で丁寧に処理。まろやかな酢と塩が素材の旨みを最大限に引き出した、そのままで最高の一品。
+            </p>
+            <div class="product-price">
+              <span class="price-label">¥</span>
+              <span class="price-value">3,800</span>
+              <span class="price-tax">（税込）</span>
+            </div>
+            <a href="#" class="btn-cart">カートに入れる</a>
+          </div>
+        </div>
+
+        <div class="product-card reveal" style="transition-delay: 0.1s">
+          <div class="product-visual">
+            ✨
+            <span class="product-badge">LIMITED</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">干しなまこ 特選品</h3>
+            <p class="product-desc">
+              旨みを凝縮させた高級干しなまこ。水で戻すほどに膨らむ、濃厚な旨み。贈り物にも最適な、究極の逸品です。
+            </p>
+            <div class="product-price">
+              <span class="price-label">¥</span>
+              <span class="price-value">12,000</span>
+              <span class="price-tax">（税込）</span>
+            </div>
+            <a href="#" class="btn-cart">カートに入れる</a>
+          </div>
+        </div>
+
+        <div class="product-card reveal" style="transition-delay: 0.2s">
+          <div class="product-visual">
+            🏆
+            <span class="product-badge">POPULAR</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">なまこ塩辛 熟成</h3>
+            <p class="product-desc">
+              なまこの内臓（このわた）を使った塩辛。日本三大珍味の一つ「このわた」。ひとなめで、濃厚な海の世界へ誘われます。
+            </p>
+            <div class="product-price">
+              <span class="price-label">¥</span>
+              <span class="price-value">5,500</span>
+              <span class="price-tax">（税込）</span>
+            </div>
+            <a href="#" class="btn-cart">カートに入れる</a>
+          </div>
+        </div>
+
+        <div class="product-card reveal" style="transition-delay: 0.3s">
+          <div class="product-visual">
+            🎁
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">晩酌セット 海の三宝</h3>
+            <p class="product-desc">
+              酢漬け・塩辛・干しなまこを詰め合わせた贅沢セット。自分へのご褒美に、大切な方への贈り物に。格調ある専用箱入り。
+            </p>
+            <div class="product-price">
+              <span class="price-label">¥</span>
+              <span class="price-value">18,000</span>
+              <span class="price-tax">（税込）</span>
+            </div>
+            <a href="#" class="btn-cart">カートに入れる</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="review-section">
+    <div class="review-inner">
+      <div class="review-header reveal">
+        <p class="section-label">Voice</p>
+        <h2 class="section-title" style="text-align:center">愛飲家の声</h2>
+        <div class="gold-line center"></div>
+      </div>
+      <div class="review-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            「仕事終わりの一杯に、このなまこの酢漬けを用意するのが最近の楽しみ。コリコリとした食感と磯の香りが、疲れを忘れさせてくれる。日本酒との相性が最高です」
+          </p>
+          <p class="review-author">T.M. / 48歳・会社役員</p>
+        </div>
+        <div class="review-card reveal" style="transition-delay: 0.1s">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            「このわたは別格。あの濃厚な旨みを一度知ったら、他の肴では物足りなくなります。焼酎のロックに合わせると、まさに至福の時間。40代になって、こういう贅沢を覚えました」
+          </p>
+          <p class="review-author">K.S. / 52歳・医師</p>
+        </div>
+        <div class="review-card reveal" style="transition-delay: 0.2s">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            「晩酌セットを自分へのご褒美に購入。箱も中身も申し分ない高級感。仕事のストレスが一瞬で飛んでいく感じ。これが本当の大人の贅沢だと思いました」
+          </p>
+          <p class="review-author">H.W. / 45歳・経営者</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="reveal">
+      <h2 class="cta-title">
+        今夜、<strong>極上の時間</strong>を<br>
+        自分に許してください。
+      </h2>
+      <p class="cta-sub">送料無料 | 即日発送対応 | 満足保証</p>
+      <a href="#product" class="btn-large">今すぐ購入する</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p class="footer-logo">海 の 雫</p>
+    <p class="footer-copy">© 2024 海の雫 — Premium Sea Cucumber. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Particle animation
+    (function() {
+      const container = document.getElementById('particles');
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 1;
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${Math.random() * 100}%;
+          animation-duration: ${Math.random() * 15 + 10}s;
+          animation-delay: ${Math.random() * 15}s;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
